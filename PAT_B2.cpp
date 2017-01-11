@@ -8,8 +8,8 @@
 using namespace std;
 #define MAXSIZE 100
 
-void TurnIntoPinyin(int N){
-        switch(N){
+void TurnIntoPinyin(int n){
+        switch(n){
                 case 1: cout << "yi";   break;
                 case 2: cout << "er";   break;
                 case 3: cout << "san";  break;

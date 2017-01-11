@@ -18,14 +18,40 @@
 #include <iostream>
 using namespace std;
 
-int Weight[] = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
-int Verification[] = {1, 0, X, 9, 8, 7, 6, 5, 4, 3, 2};
-bool IfPassed(char Id[]){
-        int Sum = 0;
-        for(int i = 0; i < 17; i++){
-                if(char Id[i] > '9' && char Id[i] > '0')
-                        return false;
-                Sum += Weight[i] * (Id(i) - 48);
-        }
-        if(Verification[Sum % 11] == Id())
+#define MAXSIZE 100
+typedef char ID[19];
+
+int Weight[] = { 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2 };
+char Verification[] = { '1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2' };
+
+bool IfPassed(char Id[]) {
+	int Sum = 0;
+	for (int i = 0; i < 17; i++) {
+		if (Id[i] > '9' || Id[i] < '0')  return false;
+		Sum += (Id[i] - 48) * Weight[i];
+	}
+	if (Verification[Sum % 11] == Id[17])
+		return true;
+	return false;
+}
+
+int main() {
+	ID Id[MAXSIZE];
+	int N, Flag = 0, Tag = 0;
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		cin >> Id[i];
+	}
+	for (int i = 0; i < N; i++) {
+		if (!IfPassed(Id[i])) {
+			if (Flag)
+				cout << '\n';
+			cout << Id[i];
+			Flag = 1;
+			Tag = 1;
+		}
+	}
+	if (!Tag)
+		cout << "All passed";
+	return 0;
 }
